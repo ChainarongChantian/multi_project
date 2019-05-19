@@ -9,42 +9,13 @@
         const ANGLE_UP = -0.52;
         const ANGLE_DOWN = 0.78;
 
-        var side_left_line, side_right_line, top_line, down_line
         var game;
         var me, bow
         var enemy, enemyDown = false
-        var arrow, arrowAngle, arrowHasLaunch = false, arrowHasCollide = false;
+        var arrow, arrowAngle, arrowHasLaunch = false;
         var readylabel, hintslabel, welldonelabel;
 
-        function Up() {
-            line = new Sprite(game, "upLine.png", 5, 700);
-            line.setPosition(5, 250)
-            line.setSpeed(0)
 
-            return line
-        }
-        function Down() {
-            line = new Sprite(game, "upLine.png", 5, 700);
-            line.setPosition(798, 250)
-            line.setSpeed(0)
-
-
-            return line
-        }
-        function Left() {
-            line = new Sprite(game, "upLine.png", 1000, 5);
-            line.setPosition(400, 565)
-            line.setSpeed(0)
-
-            return line
-        }
-        function Right() {
-            line = new Sprite(game, "upLine.png", 1000, 5);
-            line.setPosition(400, 2)
-            line.setSpeed(0)
-
-            return line
-        }
         function WelldoneLabel() {
             label = new Sprite(game, "welldone.png", 300, 100);
             label.setSpeed(0)
@@ -91,27 +62,11 @@
             }
 
             arrow.isCollide = function () {
-                if (arrow.collidesWith(side_left_line)) {
-                    arrowHasCollide = true;
-                }
-                else if (arrow.collidesWith(side_right_line)) {
-                    arrowHasCollide = true;
-                }
-                else if (arrow.collidesWith(top_line)) {
-                    arrowHasCollide = true;
-                }
-                else if (arrow.collidesWith(down_line)) {
-                    arrowHasCollide = true;
-                }
-                else if(arrow.collidesWith(enemy)) {
+               if(arrow.collidesWith(enemy)) {
                     enemyDown = true
                 }
 
-                if (arrowHasCollide) {
-
-                    arrowHasLaunch = false;
-                }
-                else if(enemyDown) {
+               if(enemyDown) {
                     arrow.hide()
                     enemy.hide()
                     hintslabel.hide()
@@ -182,12 +137,6 @@
             bow = new Bow();
             arrow = new Arrow();
 
-            //LINE 
-            top_line = new Up();
-            down_line = new Down();
-            side_left_line = new Left();
-            side_right_line = new Right();
-
             readylabel = new ReadyLabel();
             hintslabel = new HintsLabel();
             welldonelabel = new WelldoneLabel()
@@ -206,11 +155,6 @@
 
             arrow.isCollide();
             arrow.update();
-
-            top_line.update();
-            down_line.update();
-            side_left_line.update();
-            side_right_line.update();
 
             readylabel.checkKeys();
             readylabel.update();
