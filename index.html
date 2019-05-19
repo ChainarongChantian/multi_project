@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Arrow: The Ultimate Weapon</title>
+    <script type="text/javascript" src="simpleGame.js"></script>
+    <script type="text/javascript">
+        const ANGLE_UP = -0.52;
+        const ANGLE_DOWN = 0.78;
+
+        var game;
+        var me, bow
+        var enemy, enemyDown = false
+        var arrow, arrowAngle, arrowHasLaunch = false;
+        var readylabel, hintslabel, welldonelabel;
+
+
+        function WelldoneLabel() {
+            label = new Sprite(game, "welldone.png", 300, 100);
+            label.setSpeed(0)
+            label.setPosition(650, 520)
+            label.hide()
+
+            return label;
+        }
+        function HintsLabel() {
+            label = new Sprite(game, "hintsLabel.png", 750, 100);
+            label.setSpeed(0)
+            label.setPosition(390, 520)
+            label.hide()
+
+            return label;
+        }
+        function ReadyLabel() {
+            label = new Sprite(game, "readylabel.png", 500, 100);
+            label.setSpeed(0)
+            label.setPosition(500, 520)
+
+            label.checkKeys = function () {
+                if (keysDown[K_ENTER]) {
+                    this.hide();
+
+                    hintslabel.show();
+
+                    me.standBy();
+                }
+            }
+
+            return label;
+        }
+        function Arrow() {
+            arrow = new Sprite(game, "arrow.png", 50, 70);
+            arrow.setSpeed(0)
+            arrow.setPosition(107, 80)
+            arrow.hide()
+
+            arrow.launch = function () {
+                arrow.show();
+                arrow.setSpeed(10);
+                arrowHasLaunch = true;
+            }
+
+            arrow.isCollide = function () {
+               if(arrow.collidesWith(enemy)) {
+                    enemyDown = true
+                }
+
+               if(enemyDown) {
+                    arrow.hide()
+                    enemy.hide()
+                    hintslabel.hide()
+                    welldonelabel.show()
+                }
+            }
+
+            return arrow;
+        }
+        function Bow() {
+            bow = new Sprite(game, "bow.png", 50, 70)
+            bow.setSpeed(0)
+            bow.setPosition(107, 80)
+            bow.hide();
+
+            bow.checkKeys = function () {
+                if (keysDown[K_W]) {
+                    if (this.moveAngle >= ANGLE_UP) {
+                        this.changeAngleBy(-5)
+                        if (!arrowHasLaunch)
+                            arrow.changeAngleBy(-5)
+                    }
+                }
+                else if (keysDown[K_S]) {
+                    if (this.moveAngle <= ANGLE_DOWN) {
+                        this.changeAngleBy(5)
+                        if (!arrowHasLaunch)
+                            arrow.changeAngleBy(5)
+                    }
+                }
+                else if (keysDown[K_E]) {
+                    if (!arrowHasLaunch)
+                        arrow.launch()
+                }
+            }
+
+            return bow;
+        }
+        function Me() {
+            me = new Sprite(game, "me_standby.png", 70, 100);
+
+            me.setSpeed(0)
+            me.setPosition(100, 100)
+
+            me.standBy = function () {
+                me = new Sprite(game, "me_arrowing.png", 70, 100);
+                me.setSpeed(0)
+                me.setPosition(100, 100)
+
+                bow.show();
+            }
+
+            return me;
+        }
+        function Enemy() {
+            enem = new Sprite(game, "arrowing.png", 70, 120);
+
+            enem.setSpeed(0)
+            enem.setPosition(500, 300)
+
+            return enem;
+        }
+        function init() {
+            game = new Scene();
+            game.setBG("#666666");
+            me = new Me();
+            enemy = new Enemy();
+            bow = new Bow();
+            arrow = new Arrow();
+
+
+            readylabel = new ReadyLabel();
+            hintslabel = new HintsLabel();
+            welldonelabel = new WelldoneLabel()
+            game.start();
+        } // end init
+
+        function update() {
+            game.clear();
+
+            me.update();
+
+            enemy.update();
+
+            bow.checkKeys();
+            bow.update();
+
+            arrow.isCollide();
+            arrow.update();
+
+            readylabel.checkKeys();
+            readylabel.update();
+            hintslabel.update();
+            welldonelabel.update();
+        }
+
+
+    </script>
+
+</head>
+
+<body onload="init()">
+
+</body>
+
+</html>
