@@ -17,7 +17,7 @@
 
 
         function WelldoneLabel() {
-            label = new Sprite(game, "welldone.png", 300, 100);
+            label = new Sprite(game, "./welldone.png", 300, 100);
             label.setSpeed(0)
             label.setPosition(650, 520)
             label.hide()
@@ -25,7 +25,7 @@
             return label;
         }
         function HintsLabel() {
-            label = new Sprite(game, "hintsLabel.png", 750, 100);
+            label = new Sprite(game, "./hintsLabel.png", 750, 100);
             label.setSpeed(0)
             label.setPosition(390, 520)
             label.hide()
@@ -33,7 +33,7 @@
             return label;
         }
         function ReadyLabel() {
-            label = new Sprite(game, "readylabel.png", 500, 100);
+            label = new Sprite(game, "./readylabel.png", 500, 100);
             label.setSpeed(0)
             label.setPosition(500, 520)
 
@@ -50,7 +50,7 @@
             return label;
         }
         function Arrow() {
-            arrow = new Sprite(game, "arrow.png", 50, 70);
+            arrow = new Sprite(game, "./arrow.png", 50, 70);
             arrow.setSpeed(0)
             arrow.setPosition(107, 80)
             arrow.hide()
@@ -106,13 +106,13 @@
             return bow;
         }
         function Me() {
-            me = new Sprite(game, "me_standby.png", 70, 100);
+            me = new Sprite(game, "./me_standby.png", 70, 100);
 
             me.setSpeed(0)
             me.setPosition(100, 100)
 
             me.standBy = function () {
-                me = new Sprite(game, "me_arrowing.png", 70, 100);
+                me = new Sprite(game, "./me_arrowing.png", 70, 100);
                 me.setSpeed(0)
                 me.setPosition(100, 100)
 
@@ -122,7 +122,7 @@
             return me;
         }
         function Enemy() {
-            enem = new Sprite(game, "arrowing.png", 70, 120);
+            enem = new Sprite(game, "./arrowing.png", 70, 120);
 
             enem.setSpeed(0)
             enem.setPosition(500, 300)
